@@ -1,0 +1,23 @@
+Notes
+
+* Big goal: stackable evaluators
+We want to enable a PAM-like system where 
+
+* Policy is the enforcer; PolicyContext is the information used to do its job.
+I keep having trouble with this so I'm writing it down here.  A
+PolicyContext is the collection of statements/rules used to grant or
+deny a permission.  Coupled with an evaluator...the idea is that
+evaluation strategies might change more often than the collections of
+permissions they use to do their jobs.
+
+The question is: who handles Policy#getPermissions(ProtectionDomain)?
+
+* PolicyContexts must be able to return the PermissionCollections that resulted from configuration.
+This was an area in the specification that seemed to be a bit too
+flexible.  While it is true that any arbitrary Policy need not have
+access to the PermissionCollections established at configuration
+time (some Policies may look to files that were generated on the fly
+rather than to PermissionCollections to do their implication work),
+it's hardly a burden for a PolicyConfiguration to keep that
+information around and pass it to a relevant "in service"
+PolicyContext. 
